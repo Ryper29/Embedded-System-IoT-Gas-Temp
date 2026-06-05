@@ -25,12 +25,12 @@ BlynkTimer timer;
 
 // ================= THRESHOLD =================
 int gasThreshold = 1000;          // Batas gas MQ2
-float suhuThreshold = 30.0;       // Batas suhu maksimum
-float kelembapanMin = 30.0;       // Batas kelembapan minimum
+float suhuThreshold = 32.0;       // Batas suhu maksimum
+float kelembapanMin = 20.0;       // Batas kelembapan minimum
 float kelembapanMax = 80.0;       // Batas kelembapan maksimum
 
 // Tone buzzer
-int buzzerTone = 1500;
+int buzzerTone = 1000;
 
 // ================= VIRTUAL PIN BLYNK =================
 // V0 = Suhu
