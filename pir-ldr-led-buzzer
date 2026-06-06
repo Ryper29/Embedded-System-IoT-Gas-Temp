@@ -1,0 +1,64 @@
+// =========================
+// SMART HOME SECURITY SYSTEM
+// ESP8266 + PIR + LDR + LED + BUZZER
+// =========================
+
+const int pirPin = D5;
+const int ledPin = D6;
+const int buzzerPin = D7;
+
+int ldrValue;
+int motion;
+
+// Sesuaikan jika hasil pembacaan berubah
+const int batasGelap = 550;
+
+void setup() {
+  Serial.begin(115200);
+
+  pinMode(pirPin, INPUT);
+  pinMode(ledPin, OUTPUT);
+  pinMode(buzzerPin, OUTPUT);
+
+  digitalWrite(ledPin, LOW);
+  digitalWrite(buzzerPin, LOW);
+
+  Serial.println("Smart Home Security System Aktif");
+}
+
+void loop() {
+
+  // Membaca sensor
+  ldrValue = analogRead(A0);
+  motion = digitalRead(pirPin);
+
+  // Menampilkan data ke Serial Monitor
+  Serial.print("LDR = ");
+  Serial.print(ldrValue);
+  Serial.print(" | PIR = ");
+  Serial.println(motion);
+
+  // Menentukan kondisi gelap
+  bool gelap = (ldrValue > batasGelap);
+
+  // Lampu otomatis
+  if (gelap) {
+    digitalWrite(ledPin, HIGH);
+  } else {
+    digitalWrite(ledPin, LOW);
+  }
+
+  // Alarm saat gelap dan ada gerakan
+  if (gelap && motion == HIGH) {
+
+    digitalWrite(buzzerPin, HIGH);
+
+    Serial.println("PERINGATAN: Gerakan Terdeteksi!");
+  }
+  else {
+
+    digitalWrite(buzzerPin, LOW);
+  }
+
+  delay(200);
+}
